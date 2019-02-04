@@ -185,7 +185,8 @@ class XAirB35Plugin:
             "_TypeName": "Temperature",
             "_TypeID": 80,
             "_SubtypeID": 5,
-            "_Options": None
+            "_Options": None,
+            "_ValueMap": MapValue,
         },
         {
             "_Name": "XAir_Humidity", 
