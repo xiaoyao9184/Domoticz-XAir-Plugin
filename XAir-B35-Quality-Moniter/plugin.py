@@ -124,6 +124,13 @@ def MapTextHumidity(value):
         sValue = 1        #comfortable
     return sValue
 
+def UpdateDevice(Unit, nValue, sValue):
+    if (Unit not in Devices): return
+    Domoticz.Debug("Update '" + Devices[Unit].Name + "' : " + str(nValue) + " - " + str(sValue))
+    # Warning: The lastest beta does not completly support python 3.5
+    # and for unknown reason crash if Update methode is called whitout explicit parameters
+    Devices[Unit].Update(nValue = nValue, sValue = str(sValue))
+    return
 
 class XAirB35Plugin:
 
@@ -285,7 +292,7 @@ class XAirB35Plugin:
 
     def UpdateDevice(self,Data):
         self.lastTime = int(time.time())
-        if len(Data)>0:
+        if len(Data) > 0:
             strData = Data.decode("utf-8", "ignore").replace('\r\n','')
             datas = strData.split(',')
             Domoticz.Debug('Receive number: ' + datas[6] + " data:" + strData)
@@ -349,13 +356,4 @@ def onDisconnect(Connection):
 def onHeartbeat():
     global _plugin
     _plugin.onHeartbeat()
-
-def UpdateDevice(Unit, nValue, sValue):
-    if (Unit not in Devices): return
-    if (Devices[Unit].nValue != nValue) or (Devices[Unit].sValue != sValue):
-        Domoticz.Debug("Update '" + Devices[Unit].Name + "' : " + str(nValue) + " - " + str(sValue))
-        # Warning: The lastest beta does not completly support python 3.5
-        # and for unknown reason crash if Update methode is called whitout explicit parameters
-        Devices[Unit].Update(nValue = nValue, sValue = str(sValue))
-    return
 
