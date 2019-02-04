@@ -83,7 +83,7 @@ if [ -x "$(command -v apt-get)" ]; then
     # grep -c will return 1 retVal on 0 matches, block this throwing the set -e with an OR TRUE
     PKG_COUNT="${PKG_MANAGER} -s -o Debug::NoLocking=true upgrade | grep -c ^Inst || true"
     INSTALLER_DEPS=( libffi-dev libssl-dev git python3 python3-pip)
-    PYTHON_DEPS=( python-miio ptvsd rpdb )
+    PYTHON_DEPS=( ptvsd rpdb )
     package_check_install() {
         dpkg-query -W -f='${Status}' "${1}" 2>/dev/null | grep -c "ok installed" || ${PKG_INSTALL} "${1}"
     }
